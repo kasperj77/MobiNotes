@@ -38,7 +38,7 @@ public class DialogNewNote extends DialogFragment {
         });
 
         // Handle the OK button
-        
+
         btnOK.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
