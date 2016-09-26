@@ -18,6 +18,7 @@ public class DialogShowNote extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
+        // ---------------------------------------------------------------------------------------
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
@@ -31,6 +32,9 @@ public class DialogShowNote extends DialogFragment {
         ImageView ivTodo = (ImageView) dialogView.findViewById(R.id.imageViewTodo);
         ImageView ivIdea = (ImageView) dialogView.findViewById(R.id.imageViewIdea);
 
+        // ---------------------------------------------------------------------------------------
+        // checks what kind of note it is then hides the other images
+
         if (!mNote.isImportant()){
             ivImportant.setVisibility(View.GONE);
         }
@@ -41,10 +45,11 @@ public class DialogShowNote extends DialogFragment {
             ivIdea.setVisibility(View.GONE);
         }
 
+        // ---------------------------------------------------------------------------------------
         Button btnOK = (Button) dialogView.findViewById(R.id.btnOK);
 
-        builder.setView(dialogView).setMessage("Your Note");
-        
+        builder.setView(dialogView);
+
         btnOK.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

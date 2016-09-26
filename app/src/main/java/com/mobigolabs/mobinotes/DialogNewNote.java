@@ -12,12 +12,23 @@ import android.widget.*;
  * Created by jordan on 9/24/16.
  */
 public class DialogNewNote extends DialogFragment {
+
+
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState){
+
+        // creating the alert dialog builder
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
+        // creating the inflater for activity
         LayoutInflater inflater = getActivity().getLayoutInflater();
+
+        // inflating the dialog new note layout
         View dialogView = inflater.inflate(R.layout.dialog_new_note, null);
+
+
+        // get a reference to each of the UI widgets, marking as final because they will be used
+        // in an anonymous class. ---------------------------------------------------------------
 
         final EditText editTitle = (EditText) dialogView.findViewById(R.id.editTitle);
         final EditText editDescription = (EditText) dialogView.findViewById(R.id.editDescription);
@@ -30,6 +41,10 @@ public class DialogNewNote extends DialogFragment {
 
         builder.setView(dialogView).setMessage("Add a new note");
 
+
+
+        // Handle the cancel button onClick -----------------------------------------------------
+
         btnCancel.setOnClickListener( new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -37,7 +52,9 @@ public class DialogNewNote extends DialogFragment {
             }
         });
 
-        // Handle the OK button
+
+
+        // Handle the OK button onClick-----------------------------------------------------------
 
         btnOK.setOnClickListener(new View.OnClickListener() {
             @Override
