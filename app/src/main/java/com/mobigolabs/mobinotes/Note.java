@@ -1,8 +1,7 @@
 package com.mobigolabs.mobinotes;
 
-/**
- * Created by jordan on 9/23/16.
- */
+// Creating the note class and setting its member variables along with getters and setters
+
 public class Note {
 
     private String mTitle;
