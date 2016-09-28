@@ -8,9 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.*;
 
-/**
- * Created by jordan on 9/24/16.
- */
+
 public class DialogShowNote extends DialogFragment {
 
     private Note mNote;
@@ -26,11 +24,12 @@ public class DialogShowNote extends DialogFragment {
 
         TextView txtTitle = (TextView) dialogView.findViewById(R.id.txtTitle);
         TextView txtDescription = (TextView) dialogView.findViewById(R.id.txtDescription);
-        txtTitle.setText(mNote.getTitle());
-        txtDescription.setText(mNote.getDescription());
         ImageView ivImportant = (ImageView) dialogView.findViewById(R.id.imageViewImportant);
         ImageView ivTodo = (ImageView) dialogView.findViewById(R.id.imageViewTodo);
         ImageView ivIdea = (ImageView) dialogView.findViewById(R.id.imageViewIdea);
+
+        txtTitle.setText(mNote.getTitle());
+        txtDescription.setText(mNote.getDescription());
 
         // ---------------------------------------------------------------------------------------
         // checks what kind of note it is then hides the other images
