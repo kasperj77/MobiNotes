@@ -20,9 +20,6 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
 
-    // Temp code to create -----------------------------------------------------
-
-
     private NoteAdapter mNoteAdapter;
 
     public void createNewNote(Note n) {
@@ -30,15 +27,15 @@ public class MainActivity extends AppCompatActivity {
         mNoteAdapter.addNote(n);
     }
 
-    //--------------------------------------------------------------------------
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         mNoteAdapter = new NoteAdapter();
+
         ListView listNote = (ListView) findViewById(R.id.listView);
+
         assert listNote != null;
         listNote.setAdapter(mNoteAdapter);
 
@@ -47,17 +44,18 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapter, View view, int
                     whichItem, long id) {
-       /*
-         Create  a temporary Note
-         Which is a reference to the Note
-         that has just been clicked
-       */
+
+
+        // Create a temporary Note Which is a reference to the Note that has just been clicked
+
                 Note tempNote = mNoteAdapter.getItem(whichItem);
 
                 // Create a new dialog window
                 DialogShowNote dialog = new DialogShowNote();
+
                 // Send in a reference to the note to be shown
                 dialog.sendNoteSelected(tempNote);
+
                 // Show the dialog window with the note in it
                 dialog.show(getFragmentManager(), "");
             }
@@ -65,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //--------------------------------------------------------------------------
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
