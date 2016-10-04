@@ -2,6 +2,7 @@ package com.mobigolabs.mobinotes;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -63,8 +64,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    //--------------------------------------------------------------------------
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -72,7 +71,6 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    //--------------------------------------------------------------------------
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -95,7 +93,6 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
 
     }
-
 
 
         public class NoteAdapter extends BaseAdapter {
@@ -180,5 +177,17 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
+    private boolean mSound;
+    private int mAnimOption;
+    private SharedPreferences mPrefs;
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+
+        mPrefs = getSharedPreferences("mobinotes", MODE_PRIVATE);
+        mSound = mPrefs.getBoolean("sound",true);
+        mAnimOption = mPrefs.getInt("anim option", SettingsActivity.FAST);
+    }
 
     }
