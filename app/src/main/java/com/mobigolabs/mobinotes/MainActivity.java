@@ -97,10 +97,10 @@ public class MainActivity extends AppCompatActivity {
     // NoteAdapter which is used to show the notes in a list and also save them (serialization)
         public class NoteAdapter extends BaseAdapter {
 
-        // setting the mSerilzer variable
+        // setting the mSerializer variable
             private JSONSerializer mSerializer;
 
-        // NoteAdapter method which sets up the serilizer to store the JSON data into file
+        // NoteAdapter method which sets up the Serializer to store the JSON data into file
             public NoteAdapter(){
                 mSerializer = new JSONSerializer("NoteToSelf.json",
                         MainActivity.this.getApplicationContext());
