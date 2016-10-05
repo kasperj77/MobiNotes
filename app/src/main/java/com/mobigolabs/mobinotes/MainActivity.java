@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,14 +21,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-
-
-    private NoteAdapter mNoteAdapter;
-
-    public void createNewNote(Note n) {
-
-        mNoteAdapter.addNote(n);
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,9 +87,42 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    private NoteAdapter mNoteAdapter;
 
+    public void createNewNote(Note n) {
+
+        mNoteAdapter.addNote(n);
+    }
+
+    // NoteAdapter which is used to show the notes in a list and also save them (serialization)
         public class NoteAdapter extends BaseAdapter {
 
+        // setting the mSerilzer variable
+            private JSONSerializer mSerializer;
+
+        // NoteAdapter method which sets up the serilizer to store the JSON data into file
+            public NoteAdapter(){
+                mSerializer = new JSONSerializer("NoteToSelf.json",
+                        MainActivity.this.getApplicationContext());
+                try {
+                    noteList = mSerializer.load();
+                } catch (Exception e) {
+                    noteList = new ArrayList<Note>();
+                    Log.e("Error loading notes: ", "", e);
+                }
+            }
+
+        // This is saving the notes when you leave the page.
+            public void saveNotes(){
+                try{
+                    mSerializer.save(noteList);
+                }
+                catch(Exception e){
+                    Log.e("Error Saving Notes","", e);
+                }
+            }
+
+        // Creating an array list for the notes
             List<Note> noteList = new ArrayList<Note>();
 
             @Override
@@ -117,8 +143,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public View getView(
-                    int whichItem, View view, ViewGroup viewGroup) {
+            public View getView(int whichItem, View view, ViewGroup viewGroup) {
 
 			/*
 				Prepare a list item to show our data
@@ -177,6 +202,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
+    // setting variables for the settings page
     private boolean mSound;
     private int mAnimOption;
     private SharedPreferences mPrefs;
@@ -188,6 +214,12 @@ public class MainActivity extends AppCompatActivity {
         mPrefs = getSharedPreferences("mobinotes", MODE_PRIVATE);
         mSound = mPrefs.getBoolean("sound",true);
         mAnimOption = mPrefs.getInt("anim option", SettingsActivity.FAST);
+    }
+
+    @Override
+    protected void onPause(){
+        super.onPause();
+        mNoteAdapter.saveNotes();
     }
 
     }
