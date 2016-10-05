@@ -34,6 +34,19 @@ public class MainActivity extends AppCompatActivity {
         assert listNote != null;
         listNote.setAdapter(mNoteAdapter);
 
+        // So we can long click it
+        listNote.setLongClickable(true);
+
+        // Now to detect long clicks and delete the note
+
+        listNote.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            public boolean onItemLongClick(AdapterView<?> adapter, View view, int whichItem, long id) {
+                // Ask NoteAdapter to delete this entry
+                mNoteAdapter.deleteNote(whichItem);
+                return true;
+            }
+        });
+
         // Handle clicks on the ListView
         listNote.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -95,7 +108,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // NoteAdapter which is used to show the notes in a list and also save them (serialization)
-        public class NoteAdapter extends BaseAdapter {
+
+    public class NoteAdapter extends BaseAdapter {
 
         // setting the mSerializer variable
             private JSONSerializer mSerializer;
@@ -121,6 +135,12 @@ public class MainActivity extends AppCompatActivity {
                     Log.e("Error Saving Notes","", e);
                 }
             }
+
+            public void deleteNote(int n){
+                noteList.remove(n);
+                notifyDataSetChanged();
+        }
+
 
         // Creating an array list for the notes
             List<Note> noteList = new ArrayList<Note>();
@@ -202,18 +222,13 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-    // setting variables for the settings page
-    private boolean mSound;
-    private int mAnimOption;
-    private SharedPreferences mPrefs;
-
     @Override
     protected void onResume(){
         super.onResume();
 
-        mPrefs = getSharedPreferences("mobinotes", MODE_PRIVATE);
-        mSound = mPrefs.getBoolean("sound",true);
-        mAnimOption = mPrefs.getInt("anim option", SettingsActivity.FAST);
+        SharedPreferences mPrefs = getSharedPreferences("mobinotes", MODE_PRIVATE);
+        boolean mSound = mPrefs.getBoolean("sound", true);
+        int mAnimOption = mPrefs.getInt("anim option", SettingsActivity.FAST);
     }
 
     @Override
@@ -222,4 +237,4 @@ public class MainActivity extends AppCompatActivity {
         mNoteAdapter.saveNotes();
     }
 
-    }
+}
