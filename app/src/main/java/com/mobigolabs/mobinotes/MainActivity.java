@@ -16,6 +16,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,12 +51,11 @@ public class MainActivity extends AppCompatActivity {
         // Handle clicks on the ListView
         listNote.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapter, View view, int
-                    whichItem, long id) {
-
+            public void onItemClick(AdapterView<?> adapter, View view, int whichItem, long id) {
 
         // Create a temporary Note Which is a reference to the Note that has just been clicked
 
+                Log.i("info", "clicking item");
                 Note tempNote = mNoteAdapter.getItem(whichItem);
 
                 // Create a new dialog window
